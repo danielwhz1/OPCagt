@@ -3,7 +3,7 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
+import { Facebook, Twitter, Linkedin } from "lucide-react";
 
 const footerLinks = {
   Product: [
@@ -28,7 +28,6 @@ const footerLinks = {
 const socialLinks = [
   { icon: Facebook, href: "#", label: "Facebook" },
   { icon: Twitter, href: "#", label: "Twitter" },
-  { icon: Instagram, href: "#", label: "Instagram" },
   { icon: Linkedin, href: "#", label: "LinkedIn" },
 ];
 
@@ -79,7 +78,7 @@ export function Footer(): ReactNode {
                   className="flex h-11 w-11 items-center justify-center rounded-full bg-foreground/10 text-foreground transition-colors hover:bg-foreground/20"
                   aria-label={social.label}
                 >
-                  <social.icon className="h-5 w-5" />
+                  <social.icon className="h-5 w-5 fill-foreground/40 text-foreground/40" strokeWidth={1} />
                 </Link>
               ))}
             </div>
