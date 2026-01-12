@@ -3,16 +3,84 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import type { ReactNode } from "react";
+import { useState, useEffect, useCallback, type ReactNode } from "react";
+import { motion, AnimatePresence } from "motion/react";
 
-const logos = [
-  { name: "Acme Corp", src: "/mock-logos/acmecorp.svg" },
-  { name: "Boltshift", src: "/mock-logos/boltshift.svg" },
-  { name: "Capsule", src: "/mock-logos/capsule.svg" },
-  { name: "Catalog", src: "/mock-logos/catalog.svg" },
-  { name: "Cloudwatch", src: "/mock-logos/cloudwatch.svg" },
-  { name: "Featherdev", src: "/mock-logos/featherdev.svg" },
+interface Logo {
+  name: string;
+  src: string;
+  href: string;
+}
+
+const logosSetA: Logo[] = [
+  { name: "Acme Corp", src: "/mock-logos/acmecorp.svg", href: "#acme" },
+  { name: "Boltshift", src: "/mock-logos/boltshift.svg", href: "#boltshift" },
+  { name: "Capsule", src: "/mock-logos/capsule.svg", href: "#capsule" },
+  { name: "Catalog", src: "/mock-logos/catalog.svg", href: "#catalog" },
+  { name: "Cloudwatch", src: "/mock-logos/cloudwatch.svg", href: "#cloudwatch" },
+  { name: "Featherdev", src: "/mock-logos/featherdev.svg", href: "#featherdev" },
 ];
+
+const logosSetB: Logo[] = [
+  { name: "Altshift", src: "/mock-logos/altshift.svg", href: "#altshift" },
+  { name: "Biosynthesis", src: "/mock-logos/biosynthesis.svg", href: "#biosynthesis" },
+  { name: "Commandr", src: "/mock-logos/commandr.svg", href: "#commandr" },
+  { name: "Epicurious", src: "/mock-logos/epicurious.svg", href: "#epicurious" },
+  { name: "Focalpoint", src: "/mock-logos/focalpoint.svg", href: "#focalpoint" },
+  { name: "Galileo", src: "/mock-logos/galileo.svg", href: "#galileo" },
+];
+
+function LogoCell({ logoA, logoB, index }: { logoA: Logo; logoB: Logo; index: number }): ReactNode {
+  const [showSecond, setShowSecond] = useState(false);
+  const activeLogo = showSecond ? logoB : logoA;
+
+  const scheduleSwap = useCallback(() => {
+    const baseDelay = 3000 + Math.random() * 4000;
+    const staggerDelay = index * 300;
+    return setTimeout(() => {
+      setShowSecond((prev) => !prev);
+    }, baseDelay + staggerDelay);
+  }, [index]);
+
+  useEffect(() => {
+    let timeout = scheduleSwap();
+    const interval = setInterval(() => {
+      clearTimeout(timeout);
+      timeout = scheduleSwap();
+    }, 7000 + Math.random() * 3000);
+
+    return () => {
+      clearTimeout(timeout);
+      clearInterval(interval);
+    };
+  }, [scheduleSwap]);
+
+  return (
+    <Link
+      href={activeLogo.href}
+      className="relative flex h-24 items-center justify-center rounded-xl bg-muted/50 px-6 transition-colors hover:bg-muted focus-ring overflow-hidden"
+    >
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={showSecond ? "b" : "a"}
+          initial={{ opacity: 0, filter: "blur(8px)", scale: 0.9 }}
+          animate={{ opacity: 1, filter: "blur(0px)", scale: 1 }}
+          exit={{ opacity: 0, filter: "blur(8px)", scale: 0.9 }}
+          transition={{ duration: 0.4, ease: "easeInOut" }}
+          className="flex items-center justify-center"
+        >
+          <Image
+            src={activeLogo.src}
+            alt={activeLogo.name}
+            width={120}
+            height={40}
+            className="h-8 w-auto object-contain opacity-70 grayscale transition-all hover:opacity-100 hover:grayscale-0 dark:invert"
+          />
+        </motion.div>
+      </AnimatePresence>
+    </Link>
+  );
+}
 
 export function TrustedBy(): ReactNode {
   return (
@@ -32,19 +100,13 @@ export function TrustedBy(): ReactNode {
         </div>
 
         <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 md:grid-cols-6">
-          {logos.map((logo) => (
-            <div
-              key={logo.name}
-              className="flex h-24 items-center justify-center rounded-xl bg-muted/50 px-6 transition-colors hover:bg-muted"
-            >
-              <Image
-                src={logo.src}
-                alt={logo.name}
-                width={120}
-                height={40}
-                className="h-8 w-auto object-contain opacity-70 grayscale transition-all hover:opacity-100 hover:grayscale-0 dark:invert"
-              />
-            </div>
+          {logosSetA.map((logoA, index) => (
+            <LogoCell
+              key={logoA.name}
+              logoA={logoA}
+              logoB={logosSetB[index] ?? logoA}
+              index={index}
+            />
           ))}
         </div>
       </div>
