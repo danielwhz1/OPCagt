@@ -384,7 +384,6 @@ export function FluidCursor({
     };
 
     const onTouchMove = (e: TouchEvent) => {
-      e.preventDefault();
       isPreview = false;
       const touch = e.targetTouches[0];
       if (touch) updatePointer(touch.pageX, touch.pageY);

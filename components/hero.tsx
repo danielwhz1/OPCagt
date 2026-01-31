@@ -46,9 +46,9 @@ export function Hero(): ReactNode {
         <div className="from-background absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-t to-transparent" />
       </motion.div>
 
-      <div className="mx-auto flex min-h-dvh max-w-4xl flex-col items-start justify-start px-4 pt-40 sm:px-6 lg:px-8 lg:pt-68">
+      <div className="mx-auto flex min-h-dvh max-w-4xl flex-col items-start justify-center gap-6 px-4 py-20 sm:justify-start sm:gap-0 sm:py-0 sm:pt-40 lg:px-8 lg:pt-68">
         <motion.h1
-          className="text-background dark:text-background text-5xl font-medium tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
+          className="text-background dark:text-background text-4xl font-medium tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
           initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
@@ -64,7 +64,7 @@ export function Hero(): ReactNode {
         </motion.h1>
 
         <motion.div
-          className="mt-12 w-full lg:mt-16"
+          className="w-full sm:mt-12 lg:mt-16"
           initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{
