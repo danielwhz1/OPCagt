@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useRef, useState, useEffect, useCallback, type ReactNode } from "react";
 import { motion, useSpring, useMotionValue } from "motion/react";
@@ -23,7 +23,7 @@ const testimonials: Testimonial[] = [
     badge: "Design Agency",
     company: "Stellar Creative",
     quote:
-      "We've completely transformed our workflow with Kraft. What used to take our team days now happens in hours. The AI understands our brand guidelines perfectly and produces designs that clients love on the first revision.",
+      "We've completely transformed our workflow with OPCagt. What used to take our team days now happens in hours. The AI understands our brand guidelines perfectly and produces designs that clients love on the first revision.",
     name: "Sarah Chen",
     role: "Creative Director",
     image: "https://images.unsplash.com/photo-1574108233269-86d1199d28de?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -37,7 +37,7 @@ const testimonials: Testimonial[] = [
     badge: "Tech Startup",
     company: "Quantum Labs",
     quote:
-      "As a startup without a dedicated design team, Kraft has been a game-changer. We ship beautiful marketing materials, pitch decks, and product interfaces without hiring a single designer. The ROI is incredible.",
+      "As a startup without a dedicated design team, OPCagt has been a game-changer. We ship beautiful marketing materials, pitch decks, and product interfaces without hiring a single designer. The ROI is incredible.",
     name: "Marcus Rodriguez",
     role: "Co-founder & CEO",
     image: "https://images.unsplash.com/photo-1530268729831-4b0b9e170218?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -51,7 +51,7 @@ const testimonials: Testimonial[] = [
     badge: "Enterprise",
     company: "GlobalTech Inc",
     quote:
-      "Rolling out Kraft across our marketing team was seamless. The brand consistency features ensure every piece of content—from social posts to annual reports—looks like it came from the same designer. It's remarkable.",
+      "Rolling out OPCagt across our marketing team was seamless. The brand consistency features ensure every piece of content - from social posts to annual reports - looks like it came from the same designer. It's remarkable.",
     name: "Roy Park",
     role: "VP of Marketing",
     image: "https://images.unsplash.com/photo-1540569014015-19a7be504e3a?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -123,7 +123,7 @@ function TestimonialCard({ testimonial, isActive }: { testimonial: Testimonial; 
 
         <div className="mt-6 border-t border-foreground/10 pt-8">
           <p className="text-xs font-medium uppercase text-muted-foreground">
-            How they use Kraft
+            How they use OPCagt
           </p>
           <div className="mt-4 space-y-2">
             {testimonial.stats.map((stat) => (
@@ -261,3 +261,4 @@ export function Testimonials(): ReactNode {
     </section>
   );
 }
+

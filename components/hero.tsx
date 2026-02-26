@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useScroll, useTransform, useSpring, motion } from "motion/react";
 import {
@@ -13,9 +13,11 @@ import {
 import Image from "next/image";
 import { useRef, type ReactNode } from "react";
 import { FluidCursor } from "./fluid-cursor";
+import { useLocale } from "./language-provider";
 
 export function Hero(): ReactNode {
   const sectionRef = useRef<HTMLElement>(null);
+  const { locale } = useLocale();
 
   const { scrollY, scrollYProgress } = useScroll({
     target: sectionRef,
@@ -53,13 +55,15 @@ export function Hero(): ReactNode {
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
-          <span className="block">Design with AI —</span>
           <span className="block">
-            the{" "}
+            {locale === "en" ? "Build with OPCagt" : "用 OPCagt 构建"}
+          </span>
+          <span className="block">
+            {locale === "en" ? "the " : ""}
             <em className="text-background/80 dark:text-background/80 italic">
-              future
+              {locale === "en" ? "future" : "未来"}
             </em>{" "}
-            of creativity
+            {locale === "en" ? "of creativity" : "创作方式"}
           </span>
         </motion.h1>
 
@@ -82,7 +86,11 @@ export function Hero(): ReactNode {
           >
             <div className="flex items-start gap-3">
               <textarea
-                placeholder="Ask Kraft anything..."
+                placeholder={
+                  locale === "en"
+                    ? "Ask OPCagt anything..."
+                    : "向 OPCagt 提问..."
+                }
                 className="no-focus-ring mx-4 my-2 min-h-15 w-full resize-none bg-transparent text-gray-800 placeholder:text-gray-400"
                 rows={2}
               />
@@ -103,7 +111,9 @@ export function Hero(): ReactNode {
                   className="focus-ring isolate flex h-12 shrink-0 cursor-pointer items-center gap-2 rounded-full bg-white px-5 text-sm text-gray-500 transition-colors hover:border-gray-300 hover:text-gray-700"
                 >
                   <Lightbulb className="h-4 w-4 shrink-0" />
-                  <span className="xs:inline hidden">Reasoning</span>
+                  <span className="xs:inline hidden">
+                    {locale === "en" ? "Reasoning" : "推理"}
+                  </span>
                 </button>
 
                 <button
@@ -111,7 +121,7 @@ export function Hero(): ReactNode {
                   className="focus-ring isolate hidden h-12 shrink-0 cursor-pointer items-center gap-2 rounded-full bg-white px-5 text-sm text-gray-500 transition-colors hover:border-gray-300 hover:text-gray-700 sm:flex"
                 >
                   <PenTool className="h-4 w-4 shrink-0" />
-                  <span>Create Design</span>
+                  <span>{locale === "en" ? "Create Design" : "创建设计"}</span>
                 </button>
 
                 <button
@@ -119,7 +129,7 @@ export function Hero(): ReactNode {
                   className="focus-ring isolate hidden h-12 shrink-0 cursor-pointer items-center gap-2 rounded-full bg-white px-5 text-sm text-gray-500 transition-colors hover:border-gray-300 hover:text-gray-700 md:flex"
                 >
                   <Layout className="h-4 w-4 shrink-0" />
-                  <span>Wireframe</span>
+                  <span>{locale === "en" ? "Wireframe" : "线框图"}</span>
                 </button>
               </div>
 
@@ -143,7 +153,9 @@ export function Hero(): ReactNode {
           </div>
 
           <p className="text-background/60 mt-6 text-center text-xs">
-            Kraft can make mistakes, but learns from them.
+            {locale === "en"
+              ? "OPCagt can make mistakes, but learns from them."
+              : "OPCagt 可能会出错，但会持续学习。"}
           </p>
         </motion.div>
       </div>
@@ -159,8 +171,9 @@ export function Hero(): ReactNode {
         }}
       >
         <p className="text-foreground/60 dark:text-foreground/50 max-w-sm text-sm">
-          Kraft uses advanced AI to transform your ideas into stunning designs.
-          Just describe what you need.
+          {locale === "en"
+            ? "OPCagt uses advanced AI to transform your ideas into stunning designs. Just describe what you need."
+            : "OPCagt 使用先进 AI 将你的想法转化为出色设计。只需描述你的需求。"}
         </p>
 
         <ArrowDown
@@ -171,3 +184,4 @@ export function Hero(): ReactNode {
     </section>
   );
 }
+

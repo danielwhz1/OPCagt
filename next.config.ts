@@ -1,4 +1,4 @@
-import type { NextConfig } from "next";
+﻿import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   // Disable source maps in production to protect code
@@ -6,6 +6,9 @@ const nextConfig: NextConfig = {
   // Remove console.log in production
   compiler: {
     removeConsole: process.env.NODE_ENV === "production",
+  },
+  turbopack: {
+    root: "E:/View/OPCagt",
   },
   images: {
     remotePatterns: [

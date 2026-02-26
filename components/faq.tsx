@@ -1,8 +1,9 @@
-"use client";
+﻿"use client";
 
 import { useState, type ReactNode } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Plus } from "lucide-react";
+import { useLocale } from "./language-provider";
 
 interface FAQItem {
   question: string;
@@ -11,29 +12,29 @@ interface FAQItem {
 
 const faqs: FAQItem[] = [
   {
-    question: "What kinds of designs can Kraft create?",
+    question: "What kinds of designs can OPCagt create?",
     answer:
-      "Kraft can generate logos, landing pages, social media graphics, brand identities, app interfaces, presentations, and more. Just describe what you need in natural language, and Kraft will produce multiple production-ready options.",
+      "OPCagt can generate logos, landing pages, social media graphics, brand identities, app interfaces, presentations, and more. Just describe what you need in natural language, and OPCagt will produce multiple production-ready options.",
   },
   {
-    question: "How does Kraft ensure brand consistency?",
+    question: "How does OPCagt ensure brand consistency?",
     answer:
-      "Kraft learns your brand guidelines—colors, fonts, tone, and style—and applies them automatically to every design. Upload your brand kit once, and Kraft maintains consistency across all outputs.",
+      "OPCagt learns your brand guidelines - colors, fonts, tone, and style - and applies them automatically to every design. Upload your brand kit once, and OPCagt maintains consistency across all outputs.",
   },
   {
     question: "Can I edit or refine designs after generation?",
     answer:
-      "Absolutely. You can tweak colors, adjust layouts, change fonts, or request specific modifications using natural language. Kraft understands conversational edits like 'make it more minimal' or 'use a warmer palette.'",
+      "Absolutely. You can tweak colors, adjust layouts, change fonts, or request specific modifications using natural language. OPCagt understands conversational edits like 'make it more minimal' or 'use a warmer palette.'",
   },
   {
-    question: "What export formats does Kraft support?",
+    question: "What export formats does OPCagt support?",
     answer:
-      "Kraft exports to all major formats including PNG, SVG, PDF, and Figma. You can also push designs directly to your codebase with production-ready React or HTML/CSS components.",
+      "OPCagt exports to all major formats including PNG, SVG, PDF, and Figma. You can also push designs directly to your codebase with production-ready React or HTML/CSS components.",
   },
   {
     question: "Is my data and designs secure?",
     answer:
-      "Yes. All designs and data are encrypted end-to-end. We never train our models on your proprietary work, and you retain full ownership of everything you create with Kraft.",
+      "Yes. All designs and data are encrypted end-to-end. We never train our models on your proprietary work, and you retain full ownership of everything you create with OPCagt.",
   },
 ];
 
@@ -88,6 +89,7 @@ function FAQItemComponent({
 
 export function FAQ(): ReactNode {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const { locale } = useLocale();
 
   const handleToggle = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -99,7 +101,7 @@ export function FAQ(): ReactNode {
         <div className="grid items-start gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-6">
             <p className="text-4xl text-foreground font-medium tracking-tight">
-              Answers to your questions
+              {locale === "en" ? "Answers to your questions" : "常见问题解答"}
             </p>
           </div>
 
@@ -120,3 +122,4 @@ export function FAQ(): ReactNode {
     </section>
   );
 }
+

@@ -1,10 +1,11 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useState, useEffect, useCallback, type ReactNode } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { useLocale } from "./language-provider";
 
 interface Logo {
   name: string;
@@ -83,18 +84,22 @@ function LogoCell({ logoA, logoB, index }: { logoA: Logo; logoB: Logo; index: nu
 }
 
 export function TrustedBy(): ReactNode {
+  const { locale } = useLocale();
+
   return (
     <section className="py-20 md:py-28">
       <div className="px-4 sm:px-6 lg:px-[max(2rem,calc((100vw-85rem)/2+2rem))]">
         <div className="mb-10 flex items-center justify-between">
           <h2 className="text-2xl font-medium tracking-tight text-foreground md:text-3xl lg:text-4xl">
-            Trusted by teams who ship faster with Kraft
+            {locale === "en"
+              ? "Trusted by teams who ship faster with OPCagt"
+              : "被高效交付团队信赖的 OPCagt"}
           </h2>
           <Link
             href="#"
             className="group flex shrink-0 items-center leading-0 gap-2 text-xl font-medium text-muted-foreground transition-colors hover:text-foreground"
           >
-            See all
+            {locale === "en" ? "See all" : "查看全部"}
             <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-0.5" />
           </Link>
         </div>
@@ -113,3 +118,4 @@ export function TrustedBy(): ReactNode {
     </section>
   );
 }
+

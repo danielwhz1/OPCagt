@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, type ReactNode } from "react";
 import gsap from "gsap";
@@ -18,20 +18,20 @@ interface ImageRevealProps {
 
 const defaultImages = [
   // Column 0
-  { src: "/img/mock1_compressed.webp", alt: "Kraft design 1" },
-  { src: "/img/mock2_compressed.webp", alt: "Kraft design 2" },
-  { src: "/img/mock3_compressed.webp", alt: "Kraft design 3" },
-  { src: "/img/mock4_compressed.webp", alt: "Kraft design 4" },
+  { src: "/img/mock1_compressed.webp", alt: "OPCagt design 1" },
+  { src: "/img/mock2_compressed.webp", alt: "OPCagt design 2" },
+  { src: "/img/mock3_compressed.webp", alt: "OPCagt design 3" },
+  { src: "/img/mock4_compressed.webp", alt: "OPCagt design 4" },
   // Column 1
-  { src: "/img/mock5_compressed.webp", alt: "Kraft design 5" },
-  { src: "/img/mock6_compressed.webp", alt: "Kraft design 6" },
-  { src: "/img/mock7_compressed.webp", alt: "Kraft design 7" },
-  { src: "/img/mock8_compressed.webp", alt: "Kraft design 8" },
+  { src: "/img/mock5_compressed.webp", alt: "OPCagt design 5" },
+  { src: "/img/mock6_compressed.webp", alt: "OPCagt design 6" },
+  { src: "/img/mock7_compressed.webp", alt: "OPCagt design 7" },
+  { src: "/img/mock8_compressed.webp", alt: "OPCagt design 8" },
   // Column 2
-  { src: "/img/mock9_compressed.webp", alt: "Kraft design 9" },
-  { src: "/img/mock10_compressed.webp", alt: "Kraft design 10" },
-  { src: "/img/mock11_compressed.webp", alt: "Kraft design 11" },
-  { src: "/img/mock12_compressed.webp", alt: "Kraft design 12" },
+  { src: "/img/mock9_compressed.webp", alt: "OPCagt design 9" },
+  { src: "/img/mock10_compressed.webp", alt: "OPCagt design 10" },
+  { src: "/img/mock11_compressed.webp", alt: "OPCagt design 11" },
+  { src: "/img/mock12_compressed.webp", alt: "OPCagt design 12" },
 ];
 
 export function ImageReveal({
@@ -208,3 +208,4 @@ export function ImageReveal({
     </section>
   );
 }
+

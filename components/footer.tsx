@@ -1,29 +1,42 @@
-"use client";
+﻿"use client";
 
 import type { ReactNode } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Facebook, Twitter, Linkedin } from "lucide-react";
+import { useLocale } from "./language-provider";
 
-const footerLinks = {
-  Product: [
-    { label: "Features", href: "#" },
-    { label: "Pricing", href: "#" },
-    { label: "Changelog", href: "#" },
-    { label: "Roadmap", href: "#" },
-  ],
-  Company: [
-    { label: "About", href: "#" },
-    { label: "Blog", href: "#" },
-    { label: "Careers", href: "#" },
-    { label: "Press", href: "#" },
-  ],
-  Resources: [
-    { label: "Documentation", href: "#" },
-    { label: "Help Center", href: "#" },
-    { label: "Community", href: "#" },
-  ],
-};
+const footerLinks = [
+  {
+    en: "Product",
+    zh: "产品",
+    links: [
+      { en: "Features", zh: "功能", href: "#" },
+      { en: "Pricing", zh: "价格", href: "#" },
+      { en: "Changelog", zh: "更新日志", href: "#" },
+      { en: "Roadmap", zh: "路线图", href: "#" },
+    ],
+  },
+  {
+    en: "Company",
+    zh: "公司",
+    links: [
+      { en: "About", zh: "关于我们", href: "#" },
+      { en: "Blog", zh: "博客", href: "#" },
+      { en: "Careers", zh: "招聘", href: "#" },
+      { en: "Press", zh: "媒体", href: "#" },
+    ],
+  },
+  {
+    en: "Resources",
+    zh: "资源",
+    links: [
+      { en: "Documentation", zh: "文档", href: "#" },
+      { en: "Help Center", zh: "帮助中心", href: "#" },
+      { en: "Community", zh: "社区", href: "#" },
+    ],
+  },
+] as const;
 
 const socialLinks = [
   { icon: Facebook, href: "#", label: "Facebook" },
@@ -32,6 +45,8 @@ const socialLinks = [
 ];
 
 export function Footer(): ReactNode {
+  const { locale } = useLocale();
+
   return (
     <footer className="relative overflow-hidden bg-background px-4 text-foreground sm:px-6 lg:px-8">
       <div
@@ -49,17 +64,19 @@ export function Footer(): ReactNode {
       <div className="relative mx-auto max-w-7xl py-16">
         <div className="flex flex-col gap-12 lg:flex-row lg:justify-between">
           <div className="grid flex-1 gap-8 sm:grid-cols-3">
-            {Object.entries(footerLinks).map(([category, links]) => (
-              <div key={category}>
-                <h3 className="text-sm text-muted-foreground">{category}</h3>
+            {footerLinks.map((group) => (
+              <div key={group.en}>
+                <h3 className="text-sm text-muted-foreground">
+                  {locale === "en" ? group.en : group.zh}
+                </h3>
                 <ul className="mt-4 space-y-3">
-                  {links.map((link) => (
-                    <li key={link.label}>
+                  {group.links.map((link) => (
+                    <li key={link.en}>
                       <Link
                         href={link.href}
                         className="text-lg text-foreground transition-colors hover:text-foreground/70"
                       >
-                        {link.label}
+                        {locale === "en" ? link.en : link.zh}
                       </Link>
                     </li>
                   ))}
@@ -69,7 +86,9 @@ export function Footer(): ReactNode {
           </div>
 
           <div className="lg:text-right">
-            <h3 className="text-sm text-muted-foreground">Social</h3>
+            <h3 className="text-sm text-muted-foreground">
+              {locale === "en" ? "Social" : "社交"}
+            </h3>
             <div className="mt-4 flex gap-3 lg:justify-end">
               {socialLinks.map((social) => (
                 <Link
@@ -89,26 +108,26 @@ export function Footer(): ReactNode {
       <div className="relative mx-auto max-w-7xl py-8">
         <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Kraft, Inc. All rights reserved.
+            © {new Date().getFullYear()} OPCagt, Inc. All rights reserved.
           </p>
           <div className="flex gap-6">
             <Link
               href="#"
               className="text-sm text-muted-foreground transition-colors hover:text-foreground"
             >
-              Terms
+              {locale === "en" ? "Terms" : "条款"}
             </Link>
             <Link
               href="#"
               className="text-sm text-muted-foreground transition-colors hover:text-foreground"
             >
-              Privacy
+              {locale === "en" ? "Privacy" : "隐私"}
             </Link>
             <Link
               href="#"
               className="text-sm text-muted-foreground transition-colors hover:text-foreground"
             >
-              Cookies
+              {locale === "en" ? "Cookies" : "Cookies"}
             </Link>
           </div>
         </div>
@@ -127,3 +146,4 @@ export function Footer(): ReactNode {
     </footer>
   );
 }
+

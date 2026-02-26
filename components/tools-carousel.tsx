@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useRef, useEffect, useState, type ReactNode } from "react";
 import { motion, useMotionValue, useSpring, type PanInfo } from "motion/react";
@@ -14,19 +14,19 @@ const tools: Tool[] = [
   {
     title: "Describe",
     description:
-      "Tell Kraft what you need. A logo, a landing page, an entire brand—just say it.",
+      "Tell OPCagt what you need. A logo, a landing page, an entire brand - just say it.",
     image: "/img/describe.webp",
   },
   {
     title: "Generate",
     description:
-      "Watch as Kraft creates multiple design options, each one production-ready.",
+      "Watch as OPCagt creates multiple design options, each one production-ready.",
     image: "/img/generate.webp",
   },
   {
     title: "Refine",
     description:
-      "Tweak colors, fonts, adjust layouts—Kraft understands natural language edits.",
+      "Tweak colors, fonts, and adjust layouts - OPCagt understands natural language edits.",
     image: "/img/refine.webp",
   },
   {
@@ -180,3 +180,4 @@ export function ToolsCarousel(): ReactNode {
     </section>
   );
 }
+

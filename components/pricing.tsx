@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import type { LucideIcon } from "lucide-react";
 import { motion } from "motion/react";
 import { Check, Rocket, Zap, Building2 } from "lucide-react";
+import { useLocale } from "./language-provider";
 
 interface PricingPlan {
   name: string;
@@ -173,12 +174,14 @@ function PricingCard({ plan }: { plan: PricingPlan }) {
 }
 
 export function Pricing(): ReactNode {
+  const { locale } = useLocale();
+
   return (
     <section className="px-4 py-20 sm:px-6 md:py-28 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="mb-16">
           <p className="text-4xl font-medium tracking-tight text-foreground">
-            Simple, transparent pricing
+            {locale === "en" ? "Simple, transparent pricing" : "简单透明的价格"}
           </p>
         </div>
 
@@ -189,7 +192,9 @@ export function Pricing(): ReactNode {
         </div>
 
         <p className="mx-auto mt-12 max-w-2xl text-center text-lg text-muted-foreground">
-          Start free and scale as you grow. No hidden fees, no surprises.
+          {locale === "en"
+            ? "Start free and scale as you grow. No hidden fees, no surprises."
+            : "从免费开始，按需扩展。无隐藏费用，无额外套路。"}
         </p>
       </div>
     </section>

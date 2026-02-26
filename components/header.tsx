@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import {
   motion,
@@ -9,22 +9,25 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { useState, type ReactNode } from "react";
+import { LanguageToggle } from "./language-toggle";
+import { useLocale } from "./language-provider";
 
 const navLinks = [
-  { href: "#features", label: "Features" },
-  { href: "#templates", label: "Templates" },
-  { href: "#pricing", label: "Pricing" },
-  { href: "#resources", label: "Resources" },
-];
+  { href: "#features", en: "Features", zh: "功能" },
+  { href: "#templates", en: "Templates", zh: "模板" },
+  { href: "#pricing", en: "Pricing", zh: "价格" },
+  { href: "#resources", en: "Resources", zh: "资源" },
+] as const;
 
 const authLinks = [
-  { href: "", label: "Contact" },
-  { href: "", label: "Join" },
-];
+  { href: "", en: "Contact", zh: "联系" },
+  { href: "", en: "Join", zh: "加入" },
+] as const;
 
 export function Header(): ReactNode {
   const [isOpen, setIsOpen] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
+  const { locale } = useLocale();
   const { scrollY } = useScroll();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
@@ -78,11 +81,11 @@ export function Header(): ReactNode {
             <Link
               href="/"
               className="focus-ring flex items-center"
-              aria-label="Kraft home"
+              aria-label="OPCagt home"
             >
               <Image
                 src="/svg/logo.svg"
-                alt="Kraft"
+                alt="OPCagt"
                 width={120}
                 height={34}
                 priority
@@ -109,7 +112,7 @@ export function Header(): ReactNode {
                   href={link.href}
                   className="focus-ring rounded-md px-2.5 py-1 font-medium text-white transition-colors hover:bg-white/10 hover:text-white"
                 >
-                  {link.label}
+                  {locale === "en" ? link.en : link.zh}
                 </Link>
               </motion.div>
             ))}
@@ -125,7 +128,7 @@ export function Header(): ReactNode {
 
             {authLinks.map((link, index) => (
               <motion.div
-                key={link.label}
+                key={link.en}
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
@@ -138,21 +141,37 @@ export function Header(): ReactNode {
                   href={link.href}
                   className="focus-ring rounded-md px-2.5 py-1 font-medium text-white transition-colors hover:bg-white/10 hover:text-white"
                 >
-                  {link.label}
+                  {locale === "en" ? link.en : link.zh}
                 </Link>
               </motion.div>
             ))}
+
+            <LanguageToggle />
           </nav>
 
           <button
             type="button"
             onClick={toggleMenu}
             className="focus-ring relative flex h-10 w-10 items-center justify-center lg:hidden"
-            aria-label={isOpen ? "Close menu" : "Open menu"}
+            aria-label={
+              isOpen
+                ? locale === "en"
+                  ? "Close menu"
+                  : "关闭菜单"
+                : locale === "en"
+                  ? "Open menu"
+                  : "打开菜单"
+            }
             aria-expanded={isOpen}
           >
             <span className="sr-only">
-              {isOpen ? "Close menu" : "Open menu"}
+              {isOpen
+                ? locale === "en"
+                  ? "Close menu"
+                  : "关闭菜单"
+                : locale === "en"
+                  ? "Open menu"
+                  : "打开菜单"}
             </span>
             <span
               className={`absolute h-0.5 w-5 bg-white transition-transform duration-300 ${
@@ -198,7 +217,7 @@ export function Header(): ReactNode {
                     onClick={closeMenu}
                     className="focus-ring block text-6xl text-white transition-colors hover:text-white sm:text-6xl"
                   >
-                    {link.label}
+                    {locale === "en" ? link.en : link.zh}
                   </Link>
                 </motion.div>
               ))}
@@ -213,7 +232,7 @@ export function Header(): ReactNode {
 
               {authLinks.map((link, index) => (
                 <motion.div
-                  key={link.label}
+                  key={link.en}
                   initial={{ opacity: 0, x: -40, filter: "blur(10px)" }}
                   animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
                   transition={{
@@ -227,10 +246,14 @@ export function Header(): ReactNode {
                     onClick={closeMenu}
                     className="focus-ring block text-6xl text-white transition-colors hover:text-white sm:text-6xl"
                   >
-                    {link.label}
+                    {locale === "en" ? link.en : link.zh}
                   </Link>
                 </motion.div>
               ))}
+
+              <div className="mt-4">
+                <LanguageToggle />
+              </div>
             </nav>
           </motion.div>
         )}
@@ -238,3 +261,4 @@ export function Header(): ReactNode {
     </>
   );
 }
+

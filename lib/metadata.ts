@@ -1,16 +1,16 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 
 export const siteConfig = {
-  name: "React Bits Pro - AI SaaS Template",
+  name: "OPCagt - AI Workflow Platform",
   description:
     "Build, deploy, and scale AI-powered applications with enterprise-grade infrastructure. From ideation to production in minutes.",
-  url: "https://nexus-ai.com",
+  url: "https://opcagt.com",
   ogImage: "/og-image.png",
-  creator: "@nexusai",
+  creator: "@opcagt",
   authors: [
     {
-      name: "Nexus AI",
-      url: "https://nexus-ai.com",
+      name: "OPCagt",
+      url: "https://opcagt.com",
     },
   ],
   keywords: [
@@ -130,3 +130,4 @@ export function createMetadata({
     }),
   };
 }
+

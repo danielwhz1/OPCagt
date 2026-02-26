@@ -1,0 +1,10 @@
+
+> ai-saas@0.1.0 dev
+> next dev --hostname 127.0.0.1 --port 3005
+
+▲ Next.js 16.1.1 (Turbopack)
+- Local:         http://127.0.0.1:3005
+- Network:       http://127.0.0.1:3005
+
+✓ Starting...
+✓ Ready in 1542ms

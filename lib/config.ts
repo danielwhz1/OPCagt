@@ -1,4 +1,4 @@
-/**
+﻿/**
  * ============================================================================
  * SITE CONFIGURATION
  * ============================================================================
@@ -8,12 +8,12 @@
  */
 
 export const siteConfig = {
-  name: "Nexus AI",
+  name: "OPCagt",
   tagline: "The AI Platform for Modern Teams",
   description:
     "Build, deploy, and scale AI-powered applications with enterprise-grade infrastructure. From ideation to production in minutes.",
-  url: "https://nexus-ai.com",
-  twitter: "@nexusai",
+  url: "https://opcagt.com",
+  twitter: "@opcagt",
 
   nav: {
     cta: {
@@ -51,3 +51,4 @@ export const themeConfig = {
   defaultTheme: "dark" as "light" | "dark" | "system",
   enableSystemTheme: true,
 } as const;
+
