@@ -3,41 +3,57 @@
 import { useRef, useEffect, useState, type ReactNode } from "react";
 import { motion, useMotionValue, useSpring, type PanInfo } from "motion/react";
 import Image from "next/image";
+import { useLocale } from "./language-provider";
 
 interface Tool {
-  title: string;
-  description: string;
+  title: {
+    en: string;
+    zh: string;
+  };
+  description: {
+    en: string;
+    zh: string;
+  };
   image: string;
 }
 
 const tools: Tool[] = [
   {
-    title: "Describe",
-    description:
-      "Tell OPCagt what you need. A logo, a landing page, an entire brand - just say it.",
+    title: { en: "Describe", zh: "描述" },
+    description: {
+      en: "Tell OPCagt what you need. A logo, a landing page, an entire brand - just say it.",
+      zh: "告诉 OPCagt 你的需求。无论是 logo、落地页还是整套品牌，都可以直接描述。",
+    },
     image: "/img/describe.webp",
   },
   {
-    title: "Generate",
-    description:
-      "Watch as OPCagt creates multiple design options, each one production-ready.",
+    title: { en: "Generate", zh: "生成" },
+    description: {
+      en: "Watch as OPCagt creates multiple design options, each one production-ready.",
+      zh: "查看 OPCagt 生成的多个设计方案，每一个都可直接投入使用。",
+    },
     image: "/img/generate.webp",
   },
   {
-    title: "Refine",
-    description:
-      "Tweak colors, fonts, and adjust layouts - OPCagt understands natural language edits.",
+    title: { en: "Refine", zh: "微调" },
+    description: {
+      en: "Tweak colors, fonts, and adjust layouts - OPCagt understands natural language edits.",
+      zh: "调整配色、字体与布局，OPCagt 能理解自然语言修改指令。",
+    },
     image: "/img/refine.webp",
   },
   {
-    title: "Ship",
-    description:
-      "Export to Figma, download assets, or push directly to your codebase. Done.",
+    title: { en: "Ship", zh: "交付" },
+    description: {
+      en: "Export to Figma, download assets, or push directly to your codebase. Done.",
+      zh: "可导出到 Figma、下载素材，或直接推送到代码库，一步完成交付。",
+    },
     image: "/img/ship.webp",
   },
 ];
 
 export function ToolsCarousel(): ReactNode {
+  const { locale } = useLocale();
   const containerRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [constraints, setConstraints] = useState({ left: 0, right: 0 });
@@ -100,7 +116,9 @@ export function ToolsCarousel(): ReactNode {
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-12 text-2xl font-medium tracking-tight text-foreground md:text-3xl lg:text-4xl">
-            From idea to finished design in four simple steps
+            {locale === "en"
+              ? "From idea to finished design in four simple steps"
+              : "从想法到成品设计，只需四个步骤"}
           </h2>
         </div>
       </div>
@@ -131,7 +149,7 @@ export function ToolsCarousel(): ReactNode {
         >
           {tools.map((tool, index) => (
             <motion.div
-              key={tool.title}
+              key={tool.title.en}
               className="group flex w-80 shrink-0 flex-col rounded-xl bg-muted/50 px-6 pt-6 transition-colors duration-300 hover:bg-foreground sm:w-96 md:w-105"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -139,16 +157,16 @@ export function ToolsCarousel(): ReactNode {
               viewport={{ once: true }}
             >
               <h3 className="text-2xl tracking-tight text-foreground mb-2 transition-colors duration-300 group-hover:text-background">
-                {tool.title}
+                {locale === "en" ? tool.title.en : tool.title.zh}
               </h3>
               <p className="mt-2 text-lg tracking-tight leading-snug text-muted-foreground transition-colors duration-300 group-hover:text-background/70">
-                {tool.description}
+                {locale === "en" ? tool.description.en : tool.description.zh}
               </p>
 
               <div className="relative mt-6 aspect-3/4 w-full h-80 overflow-hidden">
                 <Image
                   src={tool.image}
-                  alt={tool.title}
+                  alt={locale === "en" ? tool.title.en : tool.title.zh}
                   fill
                   className="object-contain object-top scale-90 grayscale"
                   sizes="(max-width: 640px) 320px, (max-width: 768px) 384px, 420px"
@@ -174,7 +192,7 @@ export function ToolsCarousel(): ReactNode {
           }}
           transition={{ duration: 0.15 }}
         >
-          Drag
+          {locale === "en" ? "Drag" : "拖动"}
         </motion.div>
       </div>
     </section>

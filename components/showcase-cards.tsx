@@ -5,6 +5,7 @@ import { motion } from "motion/react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import NextImage from "next/image";
+import { useLocale } from "./language-provider";
 
 function getIsSafari(): boolean {
   if (typeof window === "undefined") return false;
@@ -23,21 +24,24 @@ function useIsSafari(): boolean {
 }
 
 interface CardData {
-  title: string;
+  title: {
+    en: string;
+    zh: string;
+  };
   image: string;
 }
 
 const cards: CardData[] = [
   {
-    title: "Startup Launch Kit",
+    title: { en: "Startup Launch Kit", zh: "创业启动套件" },
     image: "/img/mock1_compressed.webp",
   },
   {
-    title: "E-commerce Suite",
+    title: { en: "E-commerce Suite", zh: "电商解决方案" },
     image: "/img/mock5_compressed.webp",
   },
   {
-    title: "SaaS Dashboard",
+    title: { en: "SaaS Dashboard", zh: "SaaS 仪表盘" },
     image: "/img/mock9_compressed.webp",
   },
 ];
@@ -403,6 +407,7 @@ function BulgeCard({ title, imageSrc, index }: BulgeCardProps): ReactNode {
 }
 
 export function ShowcaseCards(): ReactNode {
+  const { locale } = useLocale();
   const isSafari = useIsSafari();
   const CardComponent = isSafari ? SafariCard : BulgeCard;
 
@@ -410,14 +415,14 @@ export function ShowcaseCards(): ReactNode {
     <section className="px-4 py-20 sm:px-6 md:py-28 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <h2 className="mb-12 text-2xl font-medium tracking-tight text-foreground md:text-3xl lg:text-4xl">
-          Pre-built designs, ready to customize
+          {locale === "en" ? "Pre-built designs, ready to customize" : "预置设计模板，开箱即改"}
         </h2>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {cards.map((card, index) => (
             <CardComponent
-              key={card.title}
-              title={card.title}
+              key={card.title.en}
+              title={locale === "en" ? card.title.en : card.title.zh}
               imageSrc={card.image}
               index={index}
             />
@@ -426,14 +431,15 @@ export function ShowcaseCards(): ReactNode {
 
         <div className="mt-12 flex flex-col gap-2 sm:flex-row items-start sm:justify-between">
           <p className="max-w-md text-lg text-muted-foreground">
-            Skip the blank canvas. Start with curated presets crafted for
-            specific industries and use cases.
+            {locale === "en"
+              ? "Skip the blank canvas. Start with curated presets crafted for specific industries and use cases."
+              : "跳过空白画布，直接使用为不同行业与场景精心设计的模板。"}
           </p>
           <Link
             href="#"
             className="group flex shrink-0 items-center leading-0 gap-2 text-xl font-medium text-muted-foreground transition-colors hover:text-foreground"
           >
-            See all
+            {locale === "en" ? "See all" : "查看全部"}
             <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-0.5" />
           </Link>
         </div>

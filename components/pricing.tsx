@@ -7,70 +7,88 @@ import { Check, Rocket, Zap, Building2 } from "lucide-react";
 import { useLocale } from "./language-provider";
 
 interface PricingPlan {
-  name: string;
-  description: string;
+  name: {
+    en: string;
+    zh: string;
+  };
+  description: {
+    en: string;
+    zh: string;
+  };
   price: string;
-  period: string;
-  note?: string;
-  features: string[];
-  cta: string;
+  period: {
+    en: string;
+    zh: string;
+  };
+  note?: {
+    en: string;
+    zh: string;
+  };
+  features: {
+    en: string;
+    zh: string;
+  }[];
+  cta: {
+    en: string;
+    zh: string;
+  };
   popular?: boolean;
   icon: LucideIcon;
 }
 
 const plans: PricingPlan[] = [
   {
-    name: "Starter",
-    description: "For individuals and side projects",
+    name: { en: "Starter", zh: "入门版" },
+    description: { en: "For individuals and side projects", zh: "适合个人与小型项目" },
     price: "$29",
-    period: "/mo",
+    period: { en: "/mo", zh: "/月" },
     icon: Rocket,
     features: [
-      "50 design generations/month",
-      "Basic brand kit",
-      "PNG & SVG exports",
-      "Email support",
-      "1 workspace",
+      { en: "50 design generations/month", zh: "每月 50 次设计生成" },
+      { en: "Basic brand kit", zh: "基础品牌套件" },
+      { en: "PNG & SVG exports", zh: "支持 PNG 与 SVG 导出" },
+      { en: "Email support", zh: "邮件支持" },
+      { en: "1 workspace", zh: "1 个工作区" },
     ],
-    cta: "Get started",
+    cta: { en: "Get started", zh: "立即开始" },
   },
   {
-    name: "Pro",
-    description: "Best for startups and growing teams",
+    name: { en: "Pro", zh: "专业版" },
+    description: { en: "Best for startups and growing teams", zh: "适合创业团队与成长型团队" },
     price: "$99",
-    period: "/mo",
-    note: "Cancel or pause any time",
+    period: { en: "/mo", zh: "/月" },
+    note: { en: "Cancel or pause any time", zh: "可随时取消或暂停" },
     icon: Zap,
     features: [
-      "Unlimited design generations",
-      "Advanced brand consistency",
-      "All export formats + Figma",
-      "Priority support & delivery",
-      "5 team members",
-      "API access",
+      { en: "Unlimited design generations", zh: "不限次数设计生成" },
+      { en: "Advanced brand consistency", zh: "高级品牌一致性能力" },
+      { en: "All export formats + Figma", zh: "全格式导出 + Figma" },
+      { en: "Priority support & delivery", zh: "优先支持与交付" },
+      { en: "5 team members", zh: "5 名团队成员" },
+      { en: "API access", zh: "API 访问" },
     ],
-    cta: "Upgrade plan",
+    cta: { en: "Upgrade plan", zh: "升级方案" },
     popular: true,
   },
   {
-    name: "Enterprise",
-    description: "For large teams and organizations",
+    name: { en: "Enterprise", zh: "企业版" },
+    description: { en: "For large teams and organizations", zh: "适合大型团队与组织" },
     price: "Custom",
-    period: "",
+    period: { en: "", zh: "" },
     icon: Building2,
     features: [
-      "Everything in Pro",
-      "Unlimited team members",
-      "Custom model training",
-      "Dedicated account manager",
-      "SSO & advanced security",
-      "SLA & on-prem options",
+      { en: "Everything in Pro", zh: "包含专业版全部能力" },
+      { en: "Unlimited team members", zh: "不限团队成员数量" },
+      { en: "Custom model training", zh: "自定义模型训练" },
+      { en: "Dedicated account manager", zh: "专属客户经理" },
+      { en: "SSO & advanced security", zh: "SSO 与高级安全能力" },
+      { en: "SLA & on-prem options", zh: "SLA 与私有化部署选项" },
     ],
-    cta: "Contact sales",
+    cta: { en: "Contact sales", zh: "联系销售" },
   },
 ];
 
-function PricingCard({ plan }: { plan: PricingPlan }) {
+function PricingCard({ plan, locale }: { plan: PricingPlan; locale: "en" | "zh" }) {
   const Icon = plan.icon;
 
   const cardContent = (
@@ -85,24 +103,30 @@ function PricingCard({ plan }: { plan: PricingPlan }) {
         </div>
         {plan.popular && (
           <span className="rounded-full border border-accent/50 bg-accent/20 px-4 py-1.5 text-sm font-medium text-accent">
-            Most popular
+            {locale === "en" ? "Most popular" : "最受欢迎"}
           </span>
         )}
       </div>
 
-      <h3 className="text-xl font-semibold text-foreground">{plan.name}</h3>
-      <p className="mt-1 text-sm text-muted-foreground">{plan.description}</p>
+      <h3 className="text-xl font-semibold text-foreground">
+        {locale === "en" ? plan.name.en : plan.name.zh}
+      </h3>
+      <p className="mt-1 text-sm text-muted-foreground">
+        {locale === "en" ? plan.description.en : plan.description.zh}
+      </p>
 
       <div className="mt-6 flex items-baseline gap-1">
         <span className="text-5xl font-semibold tracking-tight text-foreground">
-          {plan.price}
+          {locale === "en" ? plan.price : plan.price === "Custom" ? "定制" : plan.price}
         </span>
-        {plan.period && (
-          <span className="text-lg text-muted-foreground">{plan.period}</span>
+        {(locale === "en" ? plan.period.en : plan.period.zh) && (
+          <span className="text-lg text-muted-foreground">
+            {locale === "en" ? plan.period.en : plan.period.zh}
+          </span>
         )}
         {plan.note && (
           <span className="ml-auto text-right text-sm text-muted-foreground">
-            {plan.note}
+            {locale === "en" ? plan.note.en : plan.note.zh}
           </span>
         )}
       </div>
@@ -111,9 +135,11 @@ function PricingCard({ plan }: { plan: PricingPlan }) {
         <div className="flex h-full flex-col rounded-xl bg-muted/50 p-6">
           <ul className="flex-1 space-y-4">
             {plan.features.map((feature) => (
-              <li key={feature} className="flex items-start gap-3">
+              <li key={feature.en} className="flex items-start gap-3">
                 <Check className="mt-0.5 h-5 w-5 shrink-0 text-accent" />
-                <span className="text-sm text-foreground">{feature}</span>
+                <span className="text-sm text-foreground">
+                  {locale === "en" ? feature.en : feature.zh}
+                </span>
               </li>
             ))}
           </ul>
@@ -126,7 +152,7 @@ function PricingCard({ plan }: { plan: PricingPlan }) {
                 : "bg-foreground text-background hover:bg-foreground/70"
             }`}
           >
-            {plan.cta}
+            {locale === "en" ? plan.cta.en : plan.cta.zh}
           </button>
         </div>
       </div>
@@ -187,7 +213,7 @@ export function Pricing(): ReactNode {
 
         <div className="grid gap-8 lg:grid-cols-3">
           {plans.map((plan) => (
-            <PricingCard key={plan.name} plan={plan} />
+            <PricingCard key={plan.name.en} plan={plan} locale={locale} />
           ))}
         </div>
 

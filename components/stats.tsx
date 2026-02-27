@@ -2,6 +2,7 @@
 
 import { useRef, type ReactNode } from "react";
 import { motion, useInView } from "motion/react";
+import { useLocale } from "./language-provider";
 
 interface Competitor {
   name: string;
@@ -10,14 +11,17 @@ interface Competitor {
 }
 
 interface Benchmark {
-  category: string;
+  category: {
+    en: string;
+    zh: string;
+  };
   metric: string;
   competitors: Competitor[];
 }
 
 const benchmarks: Benchmark[] = [
   {
-    category: "Speed",
+    category: { en: "Speed", zh: "速度" },
     metric: "Designs/min",
     competitors: [
       { name: "OPCagt", value: 94.2, isOPCagt: true },
@@ -27,7 +31,7 @@ const benchmarks: Benchmark[] = [
     ],
   },
   {
-    category: "Quality",
+    category: { en: "Quality", zh: "质量" },
     metric: "Score",
     competitors: [
       { name: "OPCagt", value: 96.8, isOPCagt: true },
@@ -37,7 +41,7 @@ const benchmarks: Benchmark[] = [
     ],
   },
   {
-    category: "Consistency",
+    category: { en: "Consistency", zh: "一致性" },
     metric: "Accuracy %",
     competitors: [
       { name: "OPCagt", value: 98.1, isOPCagt: true },
@@ -48,7 +52,13 @@ const benchmarks: Benchmark[] = [
   },
 ];
 
-function BarChart({ benchmark }: { benchmark: Benchmark }) {
+function BarChart({
+  benchmark,
+  locale,
+}: {
+  benchmark: Benchmark;
+  locale: "en" | "zh";
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -58,7 +68,7 @@ function BarChart({ benchmark }: { benchmark: Benchmark }) {
     <div ref={ref} className="space-y-4">
       <div className="mb-6">
         <h3 className="text-lg font-medium text-foreground">
-          {benchmark.category}
+          {locale === "en" ? benchmark.category.en : benchmark.category.zh}
         </h3>
         {/* <p className="text-sm text-muted-foreground">( {benchmark.metric} )</p> */}
       </div>
@@ -123,22 +133,25 @@ function BarChart({ benchmark }: { benchmark: Benchmark }) {
 }
 
 export function Stats(): ReactNode {
+  const { locale } = useLocale();
+
   return (
     <section className="px-4 py-20 sm:px-6 md:py-28 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="mb-16 max-w-2xl">
           <h2 className="text-2xl font-medium tracking-tight text-foreground md:text-3xl lg:text-4xl">
-            Performance that stands out
+            {locale === "en" ? "Performance that stands out" : "脱颖而出的性能表现"}
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            We benchmark OPCagt against leading design tools across speed,
-            quality, and consistency. The results speak for themselves.
+            {locale === "en"
+              ? "We benchmark OPCagt against leading design tools across speed, quality, and consistency. The results speak for themselves."
+              : "我们围绕速度、质量和一致性，将 OPCagt 与主流设计工具进行对比评测。结果一目了然。"}
           </p>
         </div>
 
         <div className="grid gap-12 lg:grid-cols-3 lg:gap-12">
           {benchmarks.map((benchmark) => (
-            <BarChart key={benchmark.category} benchmark={benchmark} />
+            <BarChart key={benchmark.category.en} benchmark={benchmark} locale={locale} />
           ))}
         </div>
       </div>
